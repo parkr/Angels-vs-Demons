@@ -7,7 +7,7 @@ int main(void){
 	printf("\t<div id='content'>\n \
 		<span id='heading'>The <span id='teamname'>Quad-Core</span><br />Programmers</span><br /><br /> \
 		This is not implemented yet!<br /><a href='http://cs.mcgill.ca/~vserva1/welcome.html'>Go Home</a>\n<br/> \
-		or go straight to the <a href='http://cs.mcgill.ca/~pcrane/teamPage/'>first room.</a> \
+		or go straight to the <a href='http://cs.mcgill.ca/~vserva1/room1.html'>first room.</a> \
 	</div>\n \
 	<div id='left' class='wing'>&nbsp;</div>\n \
 	<div id='right' class='wing'>&nbsp;</div>\
