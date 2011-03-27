@@ -1,0 +1,85 @@
+html {
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size:22px;
+	margin: 0;
+	padding: 0;
+}
+
+div#border {
+	background-color: #282828;
+	height:10px;
+	width:100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+div#left {
+	width: 50%;
+}
+
+div#right {
+	width: 50%;
+	text-align: right;
+}
+
+.float {
+	float: left;
+}
+
+/************************** THE LISTS ****************************/
+ul#team {
+	list-style-type: none;
+	margin:10px 0 0 0;
+	padding:0;
+}
+
+ul#team li {
+	margin: 0;
+	padding: 0;
+	width: 400px;
+	height:172px;
+}
+
+ul#photos {
+	list-style-type: none;
+	margin: 0 20px 0 30px;
+	padding: 0;
+}
+
+ul#photos li {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 5px;
+}
+
+span.name {
+	font-size: 48px;
+}
+span.description {
+	font-style: italic;
+	font-size: 15px;
+}
+
+/********************* STYLES FOR THE RIGHT ***********************/
+div#heading {
+	font-size: 100px;
+	width: 95%;
+}
+
+span#teamname {
+	/*color: #00B3FF;*/
+	/*color: #3DC5FF; /* Light Blue */
+	color: #3D3D3D; /* Grey */
+	text-shadow: #7A7A7A 2px 2px 2px;
+}
+
+div#groupdescription {
+	font-style: italic;
+	width: 80%;
+}

@@ -1,0 +1,80 @@
+html {
+	/*overflow: scroll;*/
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	font-family: Times, serif;
+}
+
+div#border {
+	background-color: #282828;
+	height:10px;
+	width:100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+/************** THE WINGS ****************/
+div#left {
+	background-image: url("img/left_wing.png");
+	background-position: left;
+	left: 0px;
+}
+
+div#right {
+	background-image: url("img/right_wing.png");
+	background-position: right;
+	right: 0px;
+}
+
+div.wing {
+	width: 50%;
+	height: 100%;
+	background-repeat: no-repeat;
+	z-index: -2;
+	position: absolute;
+	top: 0px;
+	opacity: 0.7;
+}
+
+/***************** THE CONTENT *******************/
+div#content {
+	position: relative;
+	margin: 0 auto;
+	z-index: 1;
+	width: 75%;
+	text-align: center;
+	font-size: 20px;
+}
+
+span#heading {
+	font-size: 80px;
+}
+
+span#teamname {
+	/*color: #00B3FF;*/
+	/*color: #3DC5FF; /* Light Blue */
+	color: #3D3D3D; /* Grey */
+	text-shadow: #7A7A7A 2px 2px 2px;
+}
+
+div#navigation {
+	font-style: italic;
+}
+
+.medium {
+	font-size: 34px;
+}
+
+.italic {
+	font-style: italic;
+}
