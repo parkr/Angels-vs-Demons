@@ -36,7 +36,7 @@ div#right {
 /************************** THE LISTS ****************************/
 ul#team {
 	list-style-type: none;
-	margin:10px 0 0 0;
+	margin: 10px 0 0 0;
 	padding:0;
 }
 
@@ -44,7 +44,7 @@ ul#team li {
 	margin: 0;
 	padding: 0;
 	width: 400px;
-	height:172px;
+	height: 170px;
 }
 
 ul#photos {
@@ -54,9 +54,8 @@ ul#photos {
 }
 
 ul#photos li {
-	margin: 0;
 	padding: 0;
-	margin-bottom: 5px;
+	margin: 0 0 3px 0;
 }
 
 span.name {
