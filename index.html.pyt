@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Parker's Room: The Quad-Core Programmers: Angels &amp; Demons</title>
+	<title>Parker's Room: Angels &amp; Demons: The Quad-Core Programmers</title>
 	<link href="common.css" rel="stylesheet" type="text/css">
 </head>
 
