@@ -8,7 +8,7 @@ def check_for_input():
 	if not form:
 		output = "<!-- nothing submitted -->"
 	elif "pickup" in form:
-		picked_up = str(form["pickup"].value)
+		picked_up = str("You picked up: the "+form["pickup"].value)
 		output = picked_up
 	elif "what_i_have" in form:
 		what_i_have = str(form["what_i_have"].value)
@@ -19,15 +19,15 @@ from random import choice
 
 def form(id, list):
 	output = """
-	<form id='%s' method='post' action='activity.py'>
-		<select name='pickup'>
+		<form id='%s' method='post' action='activity.py'>
+			<select name='pickup'>
 			""" % (id)
 	for thing in list:
-		output += "<option value='"+thing+"'>"+thing.capitalize()+"</option>\n\t\t\t"
+		output += "<option value='"+thing+"'>"+thing.capitalize()+"</option>\n\t\t\t\t"
 	output += """
-		</select>
-		<input value='%s' type='submit'>
-	</form>
+			</select>
+			<input value='%s' type='submit'>
+		</form>
 	""" % (id.capitalize())
 	return output
 
@@ -36,7 +36,6 @@ def main():
 	f2 = open("inventory.csv", "r")
 	stuff = f2.read().strip().split(", ")
 	f1 = open("index.html", "r")
-	#picked_up = choice(stuff)
-	print f1.read() % (form("pickup", stuff), check_for_input())
+	print f1.read() % (form("pickup", stuff).strip(), check_for_input().strip())
 
 main()
