@@ -16,7 +16,7 @@ def check_for_input():
 			what_i_have = picked_up
 		else:
 			what_i_have += (", "+picked_up)
-		dropped = "nothing"
+			dropped = "nothing"
 	elif form['action'].value == "drop":
 		dropped = str(form["drop"].value)
 		what_i_have = str(form["what_i_have"].value)
@@ -71,13 +71,28 @@ def drop_form(what_i_have):
 	return output
 
 def main():
-	print "Content-type:text/html\n\n"
-	f2 = open("inventory.csv", "r")
-	stuff = f2.read().strip().split(", ")
-	f1 = open("index.html.pyt", "r")
-	results = check_for_input()
-	pickup_form_stuff = pickup_form(stuff, results["what_i_have"])
-	drop_form_stuff = drop_form(results["what_i_have"])
-	print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"])
+	try:
+		print "Content-type:text/html\n\n"
+		f2 = open("inventory.csv", "r")
+		stuff = f2.read().strip().split(", ")
+		f1 = open("index.html.pyt", "r")
+		results = check_for_input()
+		pickup_form_stuff = pickup_form(stuff, results["what_i_have"])
+		drop_form_stuff = drop_form(results["what_i_have"])
+		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"])
+	except Exception, e:
+		import traceback
+		print 'Content-type: text/html\n'
+		print
+		print '<html><head><title>'
+		print str(e)
+		print '</title>'
+		print '</head><body>'
+		print '<h1>TRACEBACK</h1>'
+		print '<pre>'
+		traceback.print_exc()
+		traceback.print_stack()
+		print '</pre>'
+		print '</body></html>'
 
 main()
