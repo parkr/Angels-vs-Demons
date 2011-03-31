@@ -37,7 +37,7 @@ def pickup_form(on_ground, what_i_have):
 	""" % (what_i_have)
 	return output
 
-def drop_form_stuff(what_i_have):
+def drop_form(what_i_have):
 	holding = what_i_have.split(", ")
 	output = """
 		<form id='drop' method='post' action='activity.py'>
