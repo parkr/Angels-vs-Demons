@@ -8,17 +8,32 @@ def check_for_input():
 	if not form:
 		picked_up = "nothing"
 		what_i_have = "nothing"
-	elif "pickup" in form and "what_i_have" in form:
+		dropped = "nothing"
+	elif form['action'].value == "pickup":
 		picked_up = str(form["pickup"].value)
 		what_i_have = str(form["what_i_have"].value)
 		if what_i_have.find("nothing") >= 0:
 			what_i_have = picked_up
 		else:
 			what_i_have += (", "+picked_up)
+		dropped = "nothing"
+	elif form['action'].value == "drop":
+		dropped = str(form["drop"].value)
+		what_i_have = str(form["what_i_have"].value)
+		if what_i_have.find("nothing") >= 0:
+			what_i_have = "nothing"
+		else:
+			if what_i_have.find(dropped) < what_i_have.rfind(", "):
+				# the element must be deleted along with the comma and space
+				what_i_have.replace(dropped+", ", "")
+			else:
+				#the element is last in the list
+				what_i_have.replace(dropped, "")
 	else:
 		picked_up = "problem"
+		droppped = "problem"
 		what_i_have = "problem"
-	return {'picked_up':picked_up, 'what_i_have': what_i_have}
+	return {'picked_up':picked_up, 'what_i_have': what_i_have, 'dropped': dropped}
 
 from random import choice
 
@@ -32,6 +47,7 @@ def pickup_form(on_ground, what_i_have):
 	output += """
 			</select>
 			<input type='hidden' name='what_i_have' value='%s'>
+			<input type='hidden' name='action' value='pickup'>
 			<input value='Pickup' type='submit'>
 		</form>
 	""" % (what_i_have)
@@ -41,13 +57,14 @@ def drop_form(what_i_have):
 	holding = what_i_have.split(", ")
 	output = """
 		<form id='drop' method='post' action='activity.py'>
-			<select name='pickup'>
+			<select name='drop'>
 			"""
 	for thing in holding:
 		output += "<option value='"+thing+"'>"+thing.title()+"</option>\n\t\t\t\t"
 	output += """
 			</select>
 			<input type='hidden' name='what_i_have' value='%s'>
+			<input type='hidden' name='action' value='drop'>
 			<input value='Drop' type='submit'>
 		</form>
 	""" % (what_i_have)
@@ -61,6 +78,6 @@ def main():
 	results = check_for_input()
 	pickup_form_stuff = pickup_form(stuff, results["what_i_have"])
 	drop_form_stuff = drop_form(results["what_i_have"])
-	print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"])
+	print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"])
 
 main()

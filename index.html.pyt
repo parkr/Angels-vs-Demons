@@ -14,6 +14,7 @@
 		%s<br />
 		You have: %s
 		You picked up: %s 
+		You dropped: %s
 		<div id="navigation">
 			<br /><a href="http://cs.mcgill.ca/~pcrane/teamPage/" title="The previous room">&larr;Go Left</a> | <a href="http://cs.mcgill.ca/~vserva1/welcome.html">Logout</a> | <a href="http://cs.mcgill.ca/~jmahen/" title="The final battle">Go Right&rarr;</a>
 		</div>
