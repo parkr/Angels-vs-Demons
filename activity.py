@@ -35,7 +35,7 @@ def main():
 	print "Content-type:text/html\n\n"
 	f2 = open("inventory.csv", "r")
 	stuff = f2.read().strip().split(", ")
-	f1 = open("index.html", "r")
+	f1 = open("index.html.pyt", "r")
 	print f1.read() % (form("pickup", stuff).strip(), check_for_input().strip())
 
 main()
