@@ -16,7 +16,7 @@ def check_for_input():
 			what_i_have = picked_up
 		else:
 			what_i_have += (", "+picked_up)
-			dropped = "nothing"
+		dropped = "nothing"
 	elif form['action'].value == "drop":
 		dropped = str(form["drop"].value)
 		what_i_have = str(form["what_i_have"].value)
@@ -25,14 +25,20 @@ def check_for_input():
 		else:
 			if what_i_have.find(dropped) < what_i_have.rfind(", "):
 				# the element must be deleted along with the comma and space
-				what_i_have.replace(dropped+", ", "")
+				what_i_have = what_i_have.replace(dropped+", ", "")
+			elif what_i_have.find(",") == -1:
+				#the element is the only element!
+				what_i_have = what_i_have.replace(dropped, "")
 			else:
 				#the element is last in the list
-				what_i_have.replace(dropped, "")
+				what_i_have = what_i_have.replace(", "+dropped, "")
+		picked_up = "nothing"
 	else:
 		picked_up = "problem"
 		droppped = "problem"
 		what_i_have = "problem"
+	if what_i_have == "" or what_i_have == " ":
+		what_i_have = "nothing"
 	return {'picked_up':picked_up, 'what_i_have': what_i_have, 'dropped': dropped}
 
 from random import choice
@@ -90,6 +96,7 @@ def main():
 		print '</head><body>'
 		print '<h1>TRACEBACK</h1>'
 		print '<pre>'
+		print str(e)
 		traceback.print_exc()
 		traceback.print_stack()
 		print '</pre>'
