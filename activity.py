@@ -22,24 +22,36 @@ def check_for_input():
 
 from random import choice
 
-def pickup_form(list, what_i_have):
+def pickup_form(on_ground, what_i_have):
 	output = """
-		<form id='%s' method='post' action='activity.py'>
+		<form id='pickup' method='post' action='activity.py'>
 			<select name='pickup'>
-			""" % (id)
-	for thing in list:
-		output += "<option value='"+thing+"'>"+thing.capitalize()+"</option>\n\t\t\t\t"
+			"""
+	for thing in on_ground:
+		output += "<option value='"+thing+"'>"+thing.title()+"</option>\n\t\t\t\t"
 	output += """
 			</select>
 			<input type='hidden' name='what_i_have' value='%s'>
-			<input value='%s' type='submit'>
+			<input value='Pickup' type='submit'>
 		</form>
-	""" % (what_i_have, id.capitalize())
+	""" % (what_i_have)
 	return output
 
 def drop_form_stuff(what_i_have):
 	holding = what_i_have.split(", ")
-	
+	output = """
+		<form id='drop' method='post' action='activity.py'>
+			<select name='pickup'>
+			"""
+	for thing in holding:
+		output += "<option value='"+thing+"'>"+thing.title()+"</option>\n\t\t\t\t"
+	output += """
+			</select>
+			<input type='hidden' name='what_i_have' value='%s'>
+			<input value='Drop' type='submit'>
+		</form>
+	""" % (what_i_have)
+	return output
 
 def main():
 	print "Content-type:text/html\n\n"
