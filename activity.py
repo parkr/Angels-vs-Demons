@@ -2,6 +2,15 @@
 
 import cgi
 
+def cookie_stuff():
+	expiration = datetime.datetime.now() + datetime.timedelta(days=30)
+	cookie = Cookie.SimpleCookie()
+	cookie["session"] = random.randint(1000000000)
+	cookie["session"]["domain"] = ".jayconrod.com"
+	cookie["session"]["path"] = "/"
+	cookie["session"]["expires"] = \
+	  expiration.strftime("%a, %d-%b-%Y %H:%M:%S PST")
+
 def check_for_input():
 	f2 = open("inventory.csv", "r")
 	stuff = f2.read().strip().split(", ")
@@ -87,6 +96,7 @@ def drop_form(what_i_have):
 
 def main():
 	try:
+		cookie_stuff()
 		print "Content-type:text/html\n\n"
 		f1 = open("index.html.pyt", "r")
 		results = check_for_input()
