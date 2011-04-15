@@ -14,6 +14,7 @@ def check_for_input():
 		picked_up = "nothing"
 		what_i_have = "nothing"
 		dropped = "nothing"
+		loyalty = "none"
 		points = 0
 	elif form['action'].value == "pickup":
 		picked_up = str(form["pickup"].value)
@@ -41,6 +42,14 @@ def check_for_input():
 				what_i_have = what_i_have.replace(", "+dropped, "")
 		picked_up = "nothing"
 		stuff.append(dropped)
+	elif form['action'].value = "move":
+		what_i_have = str(form['inventory1'].value)
+		what_i_have = str(form['inventory2'].value)
+		what_i_have = str(form['inventory3'].value)
+		what_i_have = str(form['inventory4'].value)
+		what_i_have = str(form['inventory5'].value)
+		dropped = "nothing"
+		picked_up = "nothing"
 	else:
 		picked_up = "problem"
 		droppped = "problem"
@@ -49,17 +58,19 @@ def check_for_input():
 	points = 0
 	if form.has_key('points') and form['points'].value != "":
 		points = int(form['points'].value)
+	if form.has_key('loyalty') and form['loyalty'].value != "":
+		loyalty = str(form['loyalty'].value)
 	if what_i_have == "" or what_i_have == " ":
 		what_i_have = "nothing"
 	# write changes to file
 	f2 = open("inventory.csv", "w")
 	f2.write(", ".join(stuff))
 	f2.close()
-	return {'picked_up':picked_up, 'what_i_have': what_i_have, 'dropped': dropped, 'points':points}
+	return {'picked_up':picked_up, 'what_i_have': what_i_have, 'dropped': dropped, 'points':points, 'loyalty': loyalty}
 
 from random import choice
 
-def pickup_form(on_ground, what_i_have, points):
+def pickup_form(on_ground, what_i_have, points, loyalty):
 	output = """
 		<form id='pickup' method='post' action='activity.py'>
 			<select name='pickup'>
@@ -71,12 +82,13 @@ def pickup_form(on_ground, what_i_have, points):
 			<input type='hidden' name='what_i_have' value='%s'>
 			<input type='hidden' name='action' value='pickup'>
 			<input type='hidden' name='points' value='%d'>
+			<input type='hidden' name='loyalty' value='%s'>
 			<input value='Pickup' type='submit'>
 		</form>
-	""" % (what_i_have, points)
+	""" % (what_i_have, points, loyalty)
 	return output
 
-def drop_form(what_i_have, points):
+def drop_form(what_i_have, points, loyalty):
 	holding = what_i_have.split(", ")
 	output = """
 		<form id='drop' method='post' action='activity.py'>
@@ -89,9 +101,10 @@ def drop_form(what_i_have, points):
 			<input type='hidden' name='what_i_have' value='%s'>
 			<input type='hidden' name='action' value='drop'>
 			<input type='hidden' name='points' value='%d'>
+			<input type='hidden' name='loyalty' value='%s'>
 			<input value='Drop' type='submit'>
 		</form>
-	""" % (what_i_have, points)
+	""" % (what_i_have, points, loyalty)
 	return output
 
 def main():
@@ -100,9 +113,9 @@ def main():
 		results = check_for_input()
 		f2 = open("inventory.csv", "r")
 		stuff = f2.read().strip().split(", ")
-		pickup_form_stuff = pickup_form(stuff, results["what_i_have"], results["points"])
-		drop_form_stuff = drop_form(results["what_i_have"], results["points"])
-		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"])
+		pickup_form_stuff = pickup_form(stuff, results["what_i_have"], results["points"], results["loyalty"])
+		drop_form_stuff = drop_form(results["what_i_have"], results["points"], results["loyalty"])
+		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"], results["loyalty"])
 	except Exception, e:
 		import traceback
 		print 'Content-type: text/html\n'
