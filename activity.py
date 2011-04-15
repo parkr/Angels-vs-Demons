@@ -89,7 +89,7 @@ class Page:
 		f2 = open(self.inventory_file, "w")
 		f2.write(", ".join(stuff))
 		f2.close()
-	 	return {'picked_up':picked_up, 'what_i_have': what_i_have, 'dropped': dropped, 'points':points, 'loyalty': loyalty}
+	 	return {'picked_up': self.picked_up, 'what_i_have': self.what_i_have, 'dropped': self.dropped, 'points': self.points, 'loyalty': self.loyalty}
 
 	def pickup_form(self):
 		output = """
