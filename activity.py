@@ -120,13 +120,22 @@ def drop_form(what_i_have, points, loyalty):
 	
 def go_form(text, link, what_i_have, points, loyalty):
 	holding = what_i_have.split(", ")
-	output = "<form id='go' method='post' action='%s'>\n\t\t\t\t" % (link)
-	for index in range(len(holding)):
-		output += "<input type='hidden' name = 'inventory"+index+"' value='"+holding[index]+"'>\n\t\t\t\t"
+	
+	output = "<form id='go' method='post' action='%s'>" % (link)
+	for index in range(5):
+		if index >= len(holding):
+			output += "\n\t\t\t<input type='hidden' name = 'inventory%d' value=''>" % (index+1)
+		else:	
+			thing = holding[index]
+			if thing == "nothing":
+				thing = ""
+			output += "\n\t\t\t<input type='hidden' name = 'inventory%d' value='%s'>" % (index+1, thing)
+	if loyalty == "none":
+		loyalty = ""
 	output += """
 			<input type='hidden' name='points' value='%d'>
 			<input type='hidden' name='loyalty' value='%s'>
-			<input value='%s' type='submit'>
+			<input type='submit' value='%s'>
 		</form>
 	""" % (points, loyalty, text)
 	return output
