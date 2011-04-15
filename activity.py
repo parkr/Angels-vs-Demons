@@ -135,7 +135,7 @@ def go_form(text, fid, link, what_i_have, points, loyalty):
 	output += """
 			<input type='hidden' name='points' value='%d'>
 			<input type='hidden' name='loyalty' value='%s'>
-			<span onclick='submitForm("%s")'>%s</span>
+			<a href='#' onclick='submitForm("%s")'>%s</a>
 		</form>
 	""" % (points, loyalty, fid, text)
 	return output
