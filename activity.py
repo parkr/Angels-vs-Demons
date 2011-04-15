@@ -135,10 +135,9 @@ def go_form(text, fid, link, what_i_have, points, loyalty):
 	output += """
 			<input type='hidden' name='points' value='%d'>
 			<input type='hidden' name='loyalty' value='%s'>
-			<a href='#' onclick='submitForm("%s")'>%s</a>
 		</form>
-	""" % (points, loyalty, fid, text)
-	return output
+	""" % (points, loyalty)
+	return {'output': output, 'link': "<a href='#' onclick='submitForm(\"%s\")'>%s</a>" % (fid, text)}
 
 def main():
 	try:
@@ -150,7 +149,7 @@ def main():
 		drop_form_stuff = drop_form(results["what_i_have"], results["points"], results["loyalty"])
 		go_left_stuff = go_form('&larr;Go Left', 'left', 'http://cs.mcgill.ca/~pcrane/teamPage/cgi-bin/show.py', results["what_i_have"], results["points"], results["loyalty"])
 		go_right_stuff = go_form('Go Right&rarr;', 'right', 'http://cs.mcgill.ca/~jmahen/cgi-bin/show.py', results["what_i_have"], results["points"], results["loyalty"])
-		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"], results["loyalty"], results["points"], go_left_stuff, go_right_stuff)
+		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"], results["loyalty"], results["points"], go_left_stuff['link'], go_right_stuff['link'], go_left_stuff['output'], go_right_stuff['output'])
 	except Exception, e:
 		import traceback, sys
 		print

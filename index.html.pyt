@@ -26,6 +26,7 @@
 			<br />%s | <a href="http://cs.mcgill.ca/~vserva1/welcome.html">Logout</a> | %s
 		</div>
 	</div>
+	<div id='go_forms'>%s %s</div>
 	<div id="left" class="wing">&nbsp;</div>
 	<div id="right" class="wing">&nbsp;</div>
 	<div id="border"></div>
