@@ -47,7 +47,7 @@ def check_for_input():
 		what_i_have = "problem"
 	#All pages have points. Get them.
 	points = 0
-	if form.has_key('points') && form['points'].value != "":
+	if form.has_key('points') and form['points'].value != "":
 		points = int(form['points'].value)
 	if what_i_have == "" or what_i_have == " ":
 		what_i_have = "nothing"
