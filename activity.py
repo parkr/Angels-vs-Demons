@@ -68,7 +68,7 @@ class Page:
 				self.what_i_have += str(form['inventory4'].value)
 			if form.has_key('inventory5') and form['inventory5'].value != "":
 				self.what_i_have += str(form['inventory5'].value)
-			if what_i_have == "":
+			if self.what_i_have == "":
 				self.what_i_have = "nothing"
 			self.dropped = "nothing"
 			self.picked_up = "nothing"
