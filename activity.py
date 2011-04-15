@@ -18,7 +18,7 @@ class Page:
 		self.results = {}
 		self.room_complete = 0
 		
-	def check_for_input():
+	def check_for_input(self):
 		f2 = open(self.inventory_file, "r")
 		stuff = f2.read().strip().split(", ")
 		f2.close()
@@ -92,7 +92,7 @@ class Page:
 		f2.close()
 	 	return {'picked_up':picked_up, 'what_i_have': what_i_have, 'dropped': dropped, 'points':points, 'loyalty': loyalty}
 
-	def pickup_form():
+	def pickup_form(self):
 		output = """
 			<form id='pickup' method='post' action='activity.py'>
 				<select name='pickup'>
@@ -111,7 +111,7 @@ class Page:
 		""" % (self.what_i_have, self.points, self.loyalty, self.room_complete)
 		return output
 
-	def drop_form():
+	def drop_form(self):
 		holding = self.what_i_have.split(", ")
 		output = """
 			<form id='drop' method='post' action='activity.py'>
@@ -130,7 +130,7 @@ class Page:
 		""" % (self.what_i_have, self.points, self.loyalty)
 		return output
 	
-	def go_form(text, fid, link):
+	def go_form(self, text, fid, link):
 		holding = self.what_i_have.split(", ")
 		output = "<form id='%s' method='post' action='%s'>" % (fid, link)
 		for index in range(5):
@@ -150,16 +150,16 @@ class Page:
 		""" % (self.points, self.loyalty)
 		return {'output': output, 'link': "<a href='#' onclick='submitForm(\"%s\")'>%s</a>" % (fid, text)}
 	
-	def generate_page():
+	def generate_page(self):
 		try:
 			f1 = open(self.template_page, "r")
-			self.results = check_for_input()
+			self.results = self.check_for_input()
 			f2 = open(self.inventory_file, "r")
 			self.stuff = f2.read().strip().split(", ")
-			pickup_form_stuff = pickup_form()
-			drop_form_stuff = drop_form()
-			go_left_stuff = go_form('&larr;Go Left', 'left', 'http://cs.mcgill.ca/~pcrane/teamPage/cgi-bin/show.py')
-			go_right_stuff = go_form('Go Right&rarr;', 'right', 'http://cs.mcgill.ca/~jmahen/cgi-bin/show.py')
+			pickup_form_stuff = self.pickup_form()
+			drop_form_stuff = self.drop_form()
+			go_left_stuff = self.go_form('&larr;Go Left', 'left', 'http://cs.mcgill.ca/~pcrane/teamPage/cgi-bin/show.py')
+			go_right_stuff = self.go_form('Go Right&rarr;', 'right', 'http://cs.mcgill.ca/~jmahen/cgi-bin/show.py')
 			print f1.read() % (pickup_form_stuff, drop_form_stuff, self.what_i_have, self.picked_up, self.dropped, self.loyalty, self.points, go_left_stuff['link'], go_right_stuff['link'], go_left_stuff['output'], go_right_stuff['output'])
 		except Exception, e:
 			import traceback, sys
