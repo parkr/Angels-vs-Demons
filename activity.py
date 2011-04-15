@@ -3,6 +3,7 @@
 print "Content-type: text/html\n\n"
 
 import cgi
+import cgitb; cgitb.enable()
 
 def check_for_input():
 	f2 = open("inventory.csv", "r")
@@ -42,12 +43,20 @@ def check_for_input():
 				what_i_have = what_i_have.replace(", "+dropped, "")
 		picked_up = "nothing"
 		stuff.append(dropped)
-	elif form['action'].value = "move":
-		what_i_have = str(form['inventory1'].value)
-		what_i_have = str(form['inventory2'].value)
-		what_i_have = str(form['inventory3'].value)
-		what_i_have = str(form['inventory4'].value)
-		what_i_have = str(form['inventory5'].value)
+	elif form['action'].value == "move":
+		what_i_have = ""
+		if form.has_key('inventory1') and form['inventory1'].value != "":
+			what_i_have += str(form['inventory1'].value)
+		if form.has_key('inventory2') and form['inventory2'].value != "":
+			what_i_have += str(form['inventory2'].value)
+		if form.has_key('inventory3') and form['inventory3'].value != "":
+			what_i_have += str(form['inventory3'].value)
+		if form.has_key('inventory4') and form['inventory4'].value != "":
+			what_i_have += str(form['inventory4'].value)
+		if form.has_key('inventory5') and form['inventory5'].value != "":
+			what_i_have += str(form['inventory5'].value)
+		if what_i_have == "":
+			what_i_have = "nothing"
 		dropped = "nothing"
 		picked_up = "nothing"
 	else:
@@ -60,6 +69,8 @@ def check_for_input():
 		points = int(form['points'].value)
 	if form.has_key('loyalty') and form['loyalty'].value != "":
 		loyalty = str(form['loyalty'].value)
+	else:
+		loyalty = "none"
 	if what_i_have == "" or what_i_have == " ":
 		what_i_have = "nothing"
 	# write changes to file
@@ -117,8 +128,7 @@ def main():
 		drop_form_stuff = drop_form(results["what_i_have"], results["points"], results["loyalty"])
 		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"], results["loyalty"])
 	except Exception, e:
-		import traceback
-		print 'Content-type: text/html\n'
+		import traceback, sys
 		print
 		print '<html><head><title>'
 		print str(e)
@@ -129,6 +139,7 @@ def main():
 		print str(e)
 		traceback.print_exc()
 		traceback.print_stack()
+		print "Unexpected error:", sys.exc_info()[0]
 		print '</pre>'
 		print '</body></html>'
 
