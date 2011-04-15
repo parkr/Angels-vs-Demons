@@ -67,6 +67,10 @@ span#teamname {
 	text-shadow: #7A7A7A 2px 2px 2px;
 }
 
+span.error {
+	color: #dc322f;
+}
+
 div#navigation {
 	font-style: italic;
 }

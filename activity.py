@@ -170,7 +170,7 @@ class Page:
 			go_left_stuff = self.go_form('&larr;Go Left', 'left', 'http://cs.mcgill.ca/~pcrane/teamPage/cgi-bin/show.py')
 			go_right_stuff = self.go_form('Go Right&rarr;', 'right', 'http://cs.mcgill.ca/~jmahen/cgi-bin/show.py')
 			if self.loyalty == "none" or self.loyalty == "":
-				self.loyalty = "none. Move left to choose a side."
+				self.loyalty = "none. <span class='error'>Move left to choose a side.</span>"
 			print f1.read() % (pickup_form_stuff, drop_form_stuff, self.what_i_have, self.picked_up, self.dropped, self.loyalty, self.points, go_left_stuff['link'], go_right_stuff['link'], go_left_stuff['output'], go_right_stuff['output'])
 		except Exception, e:
 			import traceback, sys
