@@ -92,41 +92,48 @@ class Page:
 	 	return {'picked_up': self.picked_up, 'what_i_have': self.what_i_have, 'dropped': self.dropped, 'points': self.points, 'loyalty': self.loyalty}
 
 	def pickup_form(self):
-		output = """
+		if self.loyalty == "none" or self.loyalty == "":
+			output = """
 			<form id='pickup' method='post' action='activity.py'>
 				<select name='pickup'>
 				"""
-		for thing in self.stuff:
-			output += "<option value='"+thing+"'>"+thing.title()+"</option>\n\t\t\t\t"
-		output += """
+			for thing in self.stuff:
+				output += "<option value='"+thing+"'>"+thing.title()+"</option>\n\t\t\t\t"
+			output += """
 				</select>
 				<input type='hidden' name='what_i_have' value='%s'>
 				<input type='hidden' name='action' value='pickup'>
 				<input type='hidden' name='points' value='%d'>
 				<input type='hidden' name='loyalty' value='%s'>
-				<input type='hidden' name='roomcomplete' value='%s'>
+				<input type='hidden' name='roomcomplete' value='%d'>
 				<input value='Pickup' type='submit'>
 			</form>
 		""" % (self.what_i_have, self.points, self.loyalty, self.room_complete)
+		else:
+			output = ""
 		return output
 
 	def drop_form(self):
-		holding = self.what_i_have.split(", ")
-		output = """
+		if self.loyalty == "none" or self.loyalty == "":
+			holding = self.what_i_have.split(", ")
+			output = """
 			<form id='drop' method='post' action='activity.py'>
 				<select name='drop'>
 				"""
-		for thing in holding:
-			output += "<option value='"+thing+"'>"+thing.title()+"</option>\n\t\t\t\t"
-		output += """
+			for thing in holding:
+				output += "<option value='"+thing+"'>"+thing.title()+"</option>\n\t\t\t\t"
+			output += """
 				</select>
 				<input type='hidden' name='what_i_have' value='%s'>
 				<input type='hidden' name='action' value='drop'>
 				<input type='hidden' name='points' value='%d'>
 				<input type='hidden' name='loyalty' value='%s'>
+				<input type='hidden' name='roomcomplete' value='%d'>
 				<input value='Drop' type='submit'>
 			</form>
-		""" % (self.what_i_have, self.points, self.loyalty)
+		""" % (self.what_i_have, self.points, self.loyalty, self.room_complete)
+		else:
+			output = ""
 		return output
 	
 	def go_form(self, text, fid, link):
@@ -147,9 +154,10 @@ class Page:
 		output += """
 				<input type='hidden' name='points' value='%d'>
 				<input type='hidden' name='loyalty' value='%s'>
+				<input type='hidden' name='roomcomplete' value='%d'>
 			</form>
 		""" % (self.points, loyalty)
-		return {'output': output, 'link': "<a href='#' onclick='submitForm(\"%s\")'>%s</a>" % (fid, text)}
+		return {'output': output, 'link': "<a href='#' onclick='submitForm(\"%s\")'>%s</a>" % (fid, text, self.room_complete)}
 	
 	def generate_page(self):
 		try:
@@ -161,6 +169,8 @@ class Page:
 			drop_form_stuff = self.drop_form()
 			go_left_stuff = self.go_form('&larr;Go Left', 'left', 'http://cs.mcgill.ca/~pcrane/teamPage/cgi-bin/show.py')
 			go_right_stuff = self.go_form('Go Right&rarr;', 'right', 'http://cs.mcgill.ca/~jmahen/cgi-bin/show.py')
+			if self.loyalty == "none" or self.loyalty = "":
+				self.loyalty = "none. Move left to choose a side."
 			print f1.read() % (pickup_form_stuff, drop_form_stuff, self.what_i_have, self.picked_up, self.dropped, self.loyalty, self.points, go_left_stuff['link'], go_right_stuff['link'], go_left_stuff['output'], go_right_stuff['output'])
 		except Exception, e:
 			import traceback, sys

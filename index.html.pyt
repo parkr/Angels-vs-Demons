@@ -23,7 +23,7 @@
 		Your loyalty: %s
 		Your points: %d
 		<div id="navigation">
-			<br />%s | <a href="http://cs.mcgill.ca/~vserva1/welcome.html">Logout</a> | %s
+			<br />%s | <a href="http://cs.mcgill.ca/~vserva1/a5/welcome.html">Logout</a> | %s
 		</div>
 	</div>
 	<div id='go_forms'>%s %s</div>
