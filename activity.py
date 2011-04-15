@@ -1,11 +1,9 @@
 #! /usr/bin/python
 
 print "Content-type: text/html\n\n"
-	
+import cgitb; cgitb.enable()
+
 class Page:
-	
-	import cgi, cgitb; cgitb.enable()
-	from random import choice
 	
 	def __init__(self):
 		self.template_page = "index.html.pyt"
@@ -19,6 +17,7 @@ class Page:
 		self.room_complete = 0
 		
 	def check_for_input(self):
+		import cgi
 		f2 = open(self.inventory_file, "r")
 		stuff = f2.read().strip().split(", ")
 		f2.close()
