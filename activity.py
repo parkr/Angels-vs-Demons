@@ -117,6 +117,19 @@ def drop_form(what_i_have, points, loyalty):
 		</form>
 	""" % (what_i_have, points, loyalty)
 	return output
+	
+def go_form(text, link, what_i_have, points, loyalty):
+	holding = what_i_have.split(", ")
+	output = "<form id='go' method='post' action='%s'>\n\t\t\t\t" % (link)
+	for index in range(len(holding)):
+		output += "<input type='hidden' name = 'inventory"+index+"' value='"+holding[index]+"'>\n\t\t\t\t"
+	output += """
+			<input type='hidden' name='points' value='%d'>
+			<input type='hidden' name='loyalty' value='%s'>
+			<input value='%s' type='submit'>
+		</form>
+	""" % (points, loyalty, text)
+	return output
 
 def main():
 	try:
@@ -126,7 +139,9 @@ def main():
 		stuff = f2.read().strip().split(", ")
 		pickup_form_stuff = pickup_form(stuff, results["what_i_have"], results["points"], results["loyalty"])
 		drop_form_stuff = drop_form(results["what_i_have"], results["points"], results["loyalty"])
-		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"], results["loyalty"], results["points"])
+		go_left_stuff = go_form('&larr;Go Left', 'http://cs.mcgill.ca/~pcrane/teamPage/cgi-bin/show.py', results["what_i_have"], results["points"], results["loyalty"])
+		go_right_stuff = go_form('Go Right&rarr;', 'http://cs.mcgill.ca/~jmahen/cgi-bin/show.py', results["what_i_have"], results["points"], results["loyalty"])
+		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"], results["loyalty"], results["points"], go_left_stuff, go_right_stuff)
 	except Exception, e:
 		import traceback, sys
 		print
