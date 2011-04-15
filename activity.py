@@ -92,7 +92,7 @@ class Page:
 	 	return {'picked_up': self.picked_up, 'what_i_have': self.what_i_have, 'dropped': self.dropped, 'points': self.points, 'loyalty': self.loyalty}
 
 	def pickup_form(self):
-		if self.loyalty == "none" or self.loyalty == "":
+		if not self.loyalty == "none" or self.loyalty == "":
 			output = """
 			<form id='pickup' method='post' action='activity.py'>
 				<select name='pickup'>
@@ -114,7 +114,7 @@ class Page:
 		return output
 
 	def drop_form(self):
-		if self.loyalty == "none" or self.loyalty == "":
+		if not self.loyalty == "none" or self.loyalty == "":
 			holding = self.what_i_have.split(", ")
 			output = """
 			<form id='drop' method='post' action='activity.py'>
