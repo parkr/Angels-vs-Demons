@@ -141,12 +141,14 @@ class Page:
 					thing = ""
 				output += "\n\t\t\t<input type='hidden' name = 'inventory%d' value='%s'>" % (index+1, thing)
 		if self.loyalty == "none":
-			self.loyalty = ""
+			loyalty = ""
+		else:
+			loyalty = self.loyalty
 		output += """
 				<input type='hidden' name='points' value='%d'>
 				<input type='hidden' name='loyalty' value='%s'>
 			</form>
-		""" % (self.points, self.loyalty)
+		""" % (self.points, loyalty)
 		return {'output': output, 'link': "<a href='#' onclick='submitForm(\"%s\")'>%s</a>" % (fid, text)}
 	
 	def generate_page(self):
