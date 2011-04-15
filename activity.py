@@ -126,7 +126,7 @@ def main():
 		stuff = f2.read().strip().split(", ")
 		pickup_form_stuff = pickup_form(stuff, results["what_i_have"], results["points"], results["loyalty"])
 		drop_form_stuff = drop_form(results["what_i_have"], results["points"], results["loyalty"])
-		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"], results["loyalty"])
+		print f1.read() % (pickup_form_stuff, drop_form_stuff, results["what_i_have"], results["picked_up"], results["dropped"], results["loyalty"], results["points"])
 	except Exception, e:
 		import traceback, sys
 		print
