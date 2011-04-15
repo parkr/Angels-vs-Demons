@@ -2,6 +2,11 @@
 <head>
 	<title>Parker's Room: Angels &amp; Demons: The Quad-Core Programmers</title>
 	<link href="common.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript">
+		function submitForm(fid){
+			document.forms[fid].submit();
+		}
+	</script>
 </head>
 
 <body>
