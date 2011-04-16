@@ -1,5 +1,13 @@
 #! /usr/bin/python
 
+#
+# Author: Parker Moore
+# Class: COMP 206 - McGill University
+# Winter 2011
+# Assignment 5
+# Team Quad-Core Programmers
+#
+
 print "Content-type: text/html\n\n"
 import cgitb; cgitb.enable()
 
@@ -17,6 +25,7 @@ class Page:
 		self.room_complete = 0
 		
 	def check_for_input(self):
+		# Where all the good stuff happens.
 		import cgi
 		f2 = open(self.inventory_file, "r")
 		stuff = f2.read().strip().split(", ")
@@ -24,15 +33,22 @@ class Page:
 		output = ""
 		form = cgi.FieldStorage()
 		if not form:
+			# No form? Make it so.
 			self.picked_up = "nothing"
 			self.what_i_have = "nothing"
 			self.dropped = "nothing"
 			self.loyalty = "none"
 			self.points = 0
-			self.roomcomplete = 0
+			self.room_complete = 0
 		elif form['action'].value == "pickup":
+			# You want to pick something up. Why don't I help you with that?
 			self.picked_up = str(form["pickup"].value)
 			self.what_i_have = str(form["what_i_have"].value)
+			# You can get points for that!
+			if self.picked_up.lower() == "apple":
+				added_points = 10;
+			else:
+				added_points = 0;
 			if self.what_i_have.find("nothing") >= 0:
 				self.what_i_have = self.picked_up
 			else:
@@ -57,36 +73,45 @@ class Page:
 			self.picked_up = "nothing"
 			stuff.append(self.dropped)
 		elif form['action'].value == "move":
+			# Used to extract information from other team members
+			to_get = []
 			self.what_i_have = ""
 			if form.has_key('inventory1') and form['inventory1'].value != "":
-				self.what_i_have += str(form['inventory1'].value)
+				to_get.append(str(form['inventory1'].value))
 			if form.has_key('inventory2') and form['inventory2'].value != "":
-				self.what_i_have += str(form['inventory2'].value)
+				to_get.append(str(form['inventory2'].value))
 			if form.has_key('inventory3') and form['inventory3'].value != "":
-				self.what_i_have += str(form['inventory3'].value)
+				to_get.append(str(form['inventory3'].value))
 			if form.has_key('inventory4') and form['inventory4'].value != "":
-				self.what_i_have += str(form['inventory4'].value)
+				to_get.append(str(form['inventory4'].value))
 			if form.has_key('inventory5') and form['inventory5'].value != "":
-				self.what_i_have += str(form['inventory5'].value)
+				to_get.append(str(form['inventory5'].value))
+			self.what_i_have = to_get.join(', ')
 			if self.what_i_have == "":
 				self.what_i_have = "nothing"
-			if form.has_key("roomcomplete") and form['roomcomplete'].value != "":
-				self.room_complete = int(form['roomcomplete'].value)
 			self.dropped = "nothing"
 			self.picked_up = "nothing"
 		else:
+			# You submitted a form... but no action?
 			self.picked_up = "problem"
 			self.droppped = "problem"
 			self.what_i_have = "problem"
 		#All pages have points. Get them.
 		if form.has_key('points') and form['points'].value != "":
 			self.points = int(form['points'].value)
+		# Set room_complete for Patrick's room.
+		if form.has_key('roomcomplete') and form['roomcomplete'].value != "":
+			self.room_complete = int(form['roomcomplete'].value)
+		# Set loyalty
 		if form.has_key('loyalty') and form['loyalty'].value != "":
 			self.loyalty = str(form['loyalty'].value)
 		else:
 			self.loyalty = "none"
+		# Set default readable phrase for what_i_have
 		if self.what_i_have == "" or self.what_i_have == " ":
 			self.what_i_have = "nothing"
+		if form.has_key('action') and form['action'].value == "pickup":
+			self.points += added_points # Have to do this here because only a few lines up, I set the points initially. No way around it.
 		# write changes to file
 		f2 = open(self.inventory_file, "w")
 		f2.write(", ".join(stuff))
