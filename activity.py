@@ -45,7 +45,7 @@ class Page:
 			if self.what_i_have.find("nothing") >= 0:
 				self.what_i_have = "nothing"
 			else:
-				if self.what_i_have.find(dropped) < self.what_i_have.rfind(", "):
+				if self.what_i_have.find(self.dropped) < self.what_i_have.rfind(", "):
 					# the element must be deleted along with the comma and space
 					self.what_i_have = self.what_i_have.replace(self.dropped+", ", "")
 				elif self.what_i_have.find(",") == -1:
@@ -70,6 +70,8 @@ class Page:
 				self.what_i_have += str(form['inventory5'].value)
 			if self.what_i_have == "":
 				self.what_i_have = "nothing"
+			if form.has_key("roomcomplete") and form['roomcomplete'].value != "":
+				self.room_complete = int(form['roomcomplete'].value)
 			self.dropped = "nothing"
 			self.picked_up = "nothing"
 		else:
