@@ -86,7 +86,7 @@ class Page:
 				to_get.append(str(form['inventory4'].value))
 			if form.has_key('inventory5') and form['inventory5'].value != "":
 				to_get.append(str(form['inventory5'].value))
-			self.what_i_have = to_get.join(', ')
+			self.what_i_have = ', '.join(to_get)
 			if self.what_i_have == "":
 				self.what_i_have = "nothing"
 			self.dropped = "nothing"
