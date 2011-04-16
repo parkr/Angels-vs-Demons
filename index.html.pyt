@@ -13,8 +13,7 @@
 	<div id="content">
 		<span id="heading">The <span id="teamname">Quad-Core</span><br />Programmers</span><br /><br />
 		You've entered the resting cloud. Enjoy a slight rest.<br /><br />
-		Complete a puzzle or game to gain health points and<br/>recharge before heading off to the final battle.<br /><br />
-		Sit a second and chat with others here, play some games, etc.<br />
+		Pick something up and<br/>recharge before heading off to the final battle.<br /><br />
 		%s
 		%s
 		You have: %s
